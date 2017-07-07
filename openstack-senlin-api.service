@@ -1,0 +1,12 @@
+[Unit]
+Description=OpenStack Senlin API Server
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=senlin
+ExecStart=/usr/bin/senlin-api --config-file /usr/share/senlin/senlin-dist.conf --config-file /etc/senlin/senlin.conf --logfile /var/log/senlin/senlin-api.log
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
