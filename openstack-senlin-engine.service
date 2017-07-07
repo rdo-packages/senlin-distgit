@@ -1,0 +1,12 @@
+[Unit]
+Description=OpenStack Senlin Engine Server
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=senlin
+ExecStart=/usr/bin/senlin-engine --config-file /usr/share/senlin/senlin-dist.conf --config-file /etc/senlin/senlin.conf --logfile /var/log/senlin/senlin-engine.log
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
