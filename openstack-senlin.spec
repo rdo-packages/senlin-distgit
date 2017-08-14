@@ -74,14 +74,14 @@ The goal is to make orchestration of collections of similar objects easier.
 %package -n python-%{service}
 Summary:        Senlin Python libraries
 
-Requires:       python-oslo-db >= 2.0
+Requires:       python-oslo-db >= 4.24.0
 Requires:       python-pbr >= 2.0.0
 Requires:       python-babel >= 2.3.4
 Requires:       python-docker >= 2.0.0
 Requires:       python-eventlet >= 0.18.2
 Requires:       python-jsonpath-rw >= 1.2.0
 Requires:       python-jsonschema >= 2.0.0
-Requires:       python-keystoneauth1 >= 2.21.0
+Requires:       python-keystoneauth1 >= 3.1.0
 Requires:       python-keystonemiddleware >= 4.12.0
 Requires:       python-microversion-parse >= 0.1.2
 Requires:       python-openstacksdk >= 0.9.17
@@ -100,6 +100,8 @@ Requires:       python-osprofiler >= 1.4.0
 Requires:       python-paste-deploy >= 1.5.0
 Requires:       python-qpid
 Requires:       python-requests
+Requires:       pytz
+Requires:       PyYAML
 Requires:       python-routes >= 2.3.1
 Requires:       python-six >= 1.9.0
 Requires:       python-sqlalchemy >= 1.0.10
