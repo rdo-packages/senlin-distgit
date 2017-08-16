@@ -229,8 +229,6 @@ rm -f *requirements.txt
 %{__python2} setup.py build_sphinx -b html
 # remove the sphinx-build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
-# Generate i18n files
-%{__python2} setup.py compile_catalog -d build/lib/%{service}/locale -D %{service}
 oslo-config-generator --config-file tools/config-generator.conf \
                       --output-file etc/%{service}.conf.sample
 
@@ -263,15 +261,6 @@ install -p -D -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/openstack
 # Install systemd units
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/openstack-%{service}-api.service
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/openstack-%{service}-engine.service
-
-# Install i18n .mo files (.po and .pot are not required)
-install -d -m 755 %{buildroot}%{_datadir}
-rm -f %{buildroot}%{python2_sitelib}/%{service}/locale/*/LC_*/%{service}*po
-rm -f %{buildroot}%{python2_sitelib}/%{service}/locale/*pot
-mv %{buildroot}%{python2_sitelib}/%{service}/locale %{buildroot}%{_datadir}/locale
-
-# Find language files
-%find_lang %{service} --all-name
 
 %check
 OS_TEST_PATH=./%{service}/tests/unit %{__python2} setup.py test
@@ -324,7 +313,7 @@ exit 0
 %exclude %{python2_sitelib}/%{service}/tests
 
 
-%files common -f %{service}.lang
+%files common
 %license LICENSE
 %config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/%{service}/api-paste.ini
 %config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/%{service}/%{service}.conf
@@ -344,4 +333,3 @@ exit 0
 %doc doc/build/html
 
 %changelog
-
