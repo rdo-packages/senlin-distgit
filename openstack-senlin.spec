@@ -1,15 +1,20 @@
+%global milestone .0rc1
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global service senlin
 
 Name:           openstack-%{service}
-Version:        XXX
-Release:        XXX
+Version:        4.0.0
+Release:        0.1%{?milestone}%{?dist}
 Summary:        OpenStack Senlin Service
 License:        ASL 2.0
 URL:            http://launchpad.net/%{service}/
 
 Source0:        http://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
+#
+# patches_base=4.0.0.0rc1
+#
+
 Source1:        %{service}.logrotate
 Source2:        openstack-%{service}-api.service
 Source3:        openstack-%{service}-engine.service
@@ -333,3 +338,6 @@ exit 0
 %doc doc/build/html
 
 %changelog
+* Mon Aug 21 2017 Alfredo Moralejo <amoralej@redhat.com> 4.0.0-0.1.0rc1
+- Update to 4.0.0.0rc1
+
