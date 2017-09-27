@@ -1,6 +1,11 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global service senlin
+%global common_desc \
+Senlin is a clustering service for OpenStack cloud. \
+It creates and operates clusters of homogenous objects exposed by other \
+OpenStack services. \
+The goal is to make orchestration of collections of similar objects easier.
 
 Name:           openstack-%{service}
 Version:        XXX
@@ -65,10 +70,7 @@ Requires(pre): shadow-utils
 BuildRequires:  systemd
 
 %description
-Senlin is a clustering service for OpenStack cloud.
-It creates and operates clusters of homogenous objects exposed by other
-OpenStack services.
-The goal is to make orchestration of collections of similar objects easier.
+%{common_desc}
 
 
 %package -n python-%{service}
@@ -110,10 +112,7 @@ Requires:       python-stevedore >= 1.20.0
 Requires:       python-webob >= 1.7.1
 
 %description -n python-%{service}
-Senlin is a clustering service for OpenStack cloud.
-It creates and operates clusters of homogenous objects exposed by other
-OpenStack services.
-The goal is to make orchestration of collections of similar objects easier.
+%{common_desc}
 
 This package contains the Senlin Python library.
 
@@ -124,10 +123,7 @@ Requires:       python-%{service} = %{version}-%{release}
 Requires:       python-tempest
 
 %description -n python-%{service}-tests-tempest
-Senlin is a clustering service for OpenStack cloud.
-It creates and operates clusters of homogenous objects exposed by other
-OpenStack services.
-The goal is to make orchestration of collections of similar objects easier.
+%{common_desc}
 
 This package contains the Senlin tempest test files.
 
@@ -152,10 +148,7 @@ BuildRequires:  python-testscenarios >= 0.4
 BuildRequires:  python-testtools >= 1.4.0
 
 %description -n python-%{service}-tests-unit
-Senlin is a clustering service for OpenStack cloud.
-It creates and operates clusters of homogenous objects exposed by other
-OpenStack services.
-The goal is to make orchestration of collections of similar objects easier.
+%{common_desc}
 
 This package contains the Senlin unit test files.
 
@@ -166,10 +159,7 @@ Summary:        Senlin common files
 Requires:       python-%{service} = %{version}-%{release}
 
 %description common
-Senlin is a clustering service for OpenStack cloud.
-It creates and operates clusters of homogenous objects exposed by other
-OpenStack services.
-The goal is to make orchestration of collections of similar objects easier.
+%{common_desc}
 
 This package contains Senlin common files.
 
@@ -182,10 +172,7 @@ BuildRequires:  python-oslo-sphinx
 BuildRequires:  python-debtcollector
 
 %description doc
-Senlin is a clustering service for OpenStack cloud.
-It creates and operates clusters of homogenous objects exposed by other
-OpenStack services.
-The goal is to make orchestration of collections of similar objects easier.
+%{common_desc}
 
 This package contains the documentation.
 
@@ -196,10 +183,7 @@ Summary:        OpenStack Senlin API service
 Requires:       %{name}-common = %{version}-%{release}
 
 %description api
-Senlin is a clustering service for OpenStack cloud.
-It creates and operates clusters of homogenous objects exposed by other
-OpenStack services.
-The goal is to make orchestration of collections of similar objects easier.
+%{common_desc}
 
 This package contains the ReST API.
 
@@ -210,10 +194,7 @@ Summary:        OpenStack Senlin Engine service
 Requires:       %{name}-common = %{version}-%{release}
 
 %description engine
-Senlin is a clustering service for OpenStack cloud.
-It creates and operates clusters of homogenous objects exposed by other
-OpenStack services.
-The goal is to make orchestration of collections of similar objects easier.
+%{common_desc}
 
 This package contains the Senline Engine service.
 
