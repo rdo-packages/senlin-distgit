@@ -228,8 +228,6 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{service}
 install -d -m 755 %{buildroot}%{_sysconfdir}/%{service}
 install -p -D -m 640 etc/%{service}/api-paste.ini \
                      %{buildroot}%{_sysconfdir}/%{service}/api-paste.ini
-install -p -D -m 640 etc/%{service}/policy.json \
-                     %{buildroot}%{_sysconfdir}/%{service}/policy.json
 
 # Install dist conf
 install -p -D -m 640 %{SOURCE3} %{buildroot}%{_datadir}/%{service}/%{service}-dist.conf
@@ -298,7 +296,6 @@ exit 0
 %license LICENSE
 %config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/%{service}/api-paste.ini
 %config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/%{service}/%{service}.conf
-%config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/%{service}/policy.json
 %config(noreplace) %{_sysconfdir}/logrotate.d/openstack-%{service}
 %dir %{_datadir}/%{service}
 %dir %{_sysconfdir}/%{service}
