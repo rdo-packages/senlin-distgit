@@ -116,18 +116,6 @@ Requires:       python-webob >= 1.7.1
 
 This package contains the Senlin Python library.
 
-
-%package -n python-%{service}-tests-tempest
-Summary:        Senlin tempest tests
-Requires:       python-%{service} = %{version}-%{release}
-Requires:       python-tempest
-
-%description -n python-%{service}-tests-tempest
-%{common_desc}
-
-This package contains the Senlin tempest test files.
-
-
 %package -n python-%{service}-tests-unit
 Summary:        Senlin unit tests
 
@@ -216,9 +204,6 @@ oslo-config-generator --config-file tools/config-generator.conf \
 %install
 %py2_install
 
-# Create fake tempest plugin entry point
-%py2_entrypoint %{service} %{service}
-
 # Setup directories
 install -d -m 755 %{buildroot}%{_datadir}/%{service}
 install -d -m 755 %{buildroot}%{_sharedstatedir}/%{service}
@@ -278,13 +263,6 @@ exit 0
 %files -n python-%{service}-tests-unit
 %license LICENSE
 %{python2_sitelib}/%{service}/tests
-%exclude %{python2_sitelib}/%{service}/tests/tempest
-
-%files -n python-%{service}-tests-tempest
-%license LICENSE
-%{python2_sitelib}/%{service}/tests/tempest
-%{python2_sitelib}/%{service}_tests.egg-info
-%{python2_sitelib}/%{service}/tests/__init__.py
 
 %files -n python-%{service}
 %{python2_sitelib}/%{service}
