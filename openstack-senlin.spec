@@ -24,43 +24,43 @@ BuildArch:      noarch
 
 BuildRequires:  openstack-macros
 BuildRequires:  python-pep8
-BuildRequires:  python-oslo-db
-BuildRequires:  python-docker
-BuildRequires:  python-eventlet
+BuildRequires:  python2-oslo-db
+BuildRequires:  python2-docker
+BuildRequires:  python2-eventlet
 BuildRequires:  python-jsonpath-rw
-BuildRequires:  python-jsonschema
-BuildRequires:  python-keystoneauth1
-BuildRequires:  python-keystonemiddleware
-BuildRequires:  python-microversion-parse
-BuildRequires:  python-openstacksdk
-BuildRequires:  python-oslo-config
-BuildRequires:  python-oslo-context
-BuildRequires:  python-oslo-i18n
-BuildRequires:  python-oslo-log
-BuildRequires:  python-oslo-messaging
-BuildRequires:  python-oslo-middleware
-BuildRequires:  python-oslo-policy
-BuildRequires:  python-oslo-serialization
-BuildRequires:  python-oslo-service
-BuildRequires:  python-oslo-utils
-BuildRequires:  python-oslo-versionedobjects
-BuildRequires:  python-osprofiler
+BuildRequires:  python2-jsonschema
+BuildRequires:  python2-keystoneauth1
+BuildRequires:  python2-keystonemiddleware
+BuildRequires:  python2-microversion-parse
+BuildRequires:  python2-openstacksdk
+BuildRequires:  python2-oslo-config
+BuildRequires:  python2-oslo-context
+BuildRequires:  python2-oslo-i18n
+BuildRequires:  python2-oslo-log
+BuildRequires:  python2-oslo-messaging
+BuildRequires:  python2-oslo-middleware
+BuildRequires:  python2-oslo-policy
+BuildRequires:  python2-oslo-serialization
+BuildRequires:  python2-oslo-service
+BuildRequires:  python2-oslo-utils
+BuildRequires:  python2-oslo-versionedobjects
+BuildRequires:  python2-osprofiler
 BuildRequires:  python-paste-deploy
 BuildRequires:  python-qpid
-BuildRequires:  python-requests
-BuildRequires:  python-routes
-BuildRequires:  python-six
-BuildRequires:  python-sqlalchemy
+BuildRequires:  python2-requests
+BuildRequires:  python2-routes
+BuildRequires:  python2-six
+BuildRequires:  python2-sqlalchemy
 BuildRequires:  python-migrate
-BuildRequires:  python-stevedore
+BuildRequires:  python2-stevedore
 BuildRequires:  python-webob
 BuildRequires:  python2-devel
-BuildRequires:  python-pbr
-BuildRequires:  python-setuptools
+BuildRequires:  python2-pbr
+BuildRequires:  python2-setuptools
 BuildRequires:  git
 
 # Required to compile translation files
-BuildRequires:  python-babel
+BuildRequires:  python2-babel
 
 Requires:       openstack-%{service}-common = %{version}-%{release}
 
@@ -76,39 +76,39 @@ BuildRequires:  systemd
 %package -n python-%{service}
 Summary:        Senlin Python libraries
 
-Requires:       python-oslo-db >= 4.24.0
-Requires:       python-pbr >= 2.0.0
-Requires:       python-babel >= 2.3.4
-Requires:       python-docker >= 2.0.0
-Requires:       python-eventlet >= 0.18.2
+Requires:       python2-oslo-db >= 4.27.0
+Requires:       python2-pbr >= 2.0.0
+Requires:       python2-babel >= 2.3.4
+Requires:       python2-docker >= 2.0.0
+Requires:       python2-eventlet >= 0.18.2
 Requires:       python-jsonpath-rw >= 1.2.0
-Requires:       python-jsonschema >= 2.0.0
-Requires:       python-keystoneauth1 >= 3.1.0
-Requires:       python-keystonemiddleware >= 4.12.0
-Requires:       python-microversion-parse >= 0.1.2
-Requires:       python-openstacksdk >= 0.9.17
-Requires:       python-oslo-config >= 2:4.0.0
-Requires:       python-oslo-context >= 2.14.0
-Requires:       python-oslo-i18n >= 2.1.0
-Requires:       python-oslo-log >= 3.22.0
-Requires:       python-oslo-messaging >= 5.24.2
-Requires:       python-oslo-middleware >= 3.27.0
-Requires:       python-oslo-policy >= 1.23.0
-Requires:       python-oslo-serialization >= 1.10.0
-Requires:       python-oslo-service >= 1.10.0
-Requires:       python-oslo-utils >= 3.20.0
-Requires:       python-oslo-versionedobjects >= 1.17.0
-Requires:       python-osprofiler >= 1.4.0
+Requires:       python2-jsonschema >= 2.6.0
+Requires:       python2-keystoneauth1 >= 3.3.0
+Requires:       python2-keystonemiddleware >= 4.17.0
+Requires:       python2-microversion-parse >= 0.1.2
+Requires:       python2-openstacksdk >= 0.9.19
+Requires:       python2-oslo-config >= 2:5.1.0
+Requires:       python2-oslo-context >= 2.19.2
+Requires:       python2-oslo-i18n >= 3.15.3
+Requires:       python2-oslo-log >= 3.36.0
+Requires:       python2-oslo-messaging >= 5.29.0
+Requires:       python2-oslo-middleware >= 3.31.0
+Requires:       python2-oslo-policy >= 1.30.0
+Requires:       python2-oslo-serialization >= 2.18.0
+Requires:       python2-oslo-service >= 1.24.0
+Requires:       python2-oslo-utils >= 3.33.0
+Requires:       python2-oslo-versionedobjects >= 1.31.2
+Requires:       python2-osprofiler >= 1.4.0
 Requires:       python-paste-deploy >= 1.5.0
 Requires:       python-qpid
-Requires:       python-requests
-Requires:       pytz
+Requires:       python2-requests
+Requires:       python2-pytz
 Requires:       PyYAML
-Requires:       python-routes >= 2.3.1
-Requires:       python-six >= 1.9.0
-Requires:       python-sqlalchemy >= 1.0.10
+Requires:       python2-routes >= 2.3.1
+Requires:       python2-six >= 1.10.0
+Requires:       python2-sqlalchemy >= 1.0.10
 Requires:       python-migrate >= 0.11.0
-Requires:       python-stevedore >= 1.20.0
+Requires:       python2-stevedore >= 1.20.0
 Requires:       python-webob >= 1.7.1
 
 %description -n python-%{service}
@@ -119,21 +119,21 @@ This package contains the Senlin Python library.
 %package -n python-%{service}-tests-unit
 Summary:        Senlin unit tests
 
-Requires:       python-testrepository
-Requires:       python-testscenarios
-Requires:       python-testtools
-Requires:       python-oslotest
-Requires:       python-os-testr
-Requires:       python-mock
+Requires:       python2-testrepository
+Requires:       python2-testscenarios
+Requires:       python2-testtools
+Requires:       python2-oslotest
+Requires:       python2-os-testr
+Requires:       python2-mock
 Requires:       python-%{service} = %{version}-%{release}
-BuildRequires:  python-mock
-BuildRequires:  python-openstackdocstheme >= 1.11.0
-BuildRequires:  python-oslotest >= 1.10.0
-BuildRequires:  python-os-testr >= 0.8.0
-BuildRequires:  python-PyMySQL >= 0.7.6
-BuildRequires:  python-testrepository >= 0.0.18
-BuildRequires:  python-testscenarios >= 0.4
-BuildRequires:  python-testtools >= 1.4.0
+BuildRequires:  python2-mock
+BuildRequires:  python2-openstackdocstheme >= 1.11.0
+BuildRequires:  python2-oslotest >= 1.10.0
+BuildRequires:  python2-os-testr >= 0.8.0
+BuildRequires:  python2-PyMySQL >= 0.7.6
+BuildRequires:  python2-testrepository >= 0.0.18
+BuildRequires:  python2-testscenarios >= 0.4
+BuildRequires:  python2-testtools >= 1.4.0
 
 %description -n python-%{service}-tests-unit
 %{common_desc}
@@ -155,9 +155,9 @@ This package contains Senlin common files.
 %package doc
 Summary:        Senlin documentation
 
-BuildRequires:  python-sphinx
-BuildRequires:  python-oslo-sphinx
-BuildRequires:  python-debtcollector
+BuildRequires:  python2-sphinx
+BuildRequires:  python2-oslo-sphinx
+BuildRequires:  python2-debtcollector
 
 %description doc
 %{common_desc}
