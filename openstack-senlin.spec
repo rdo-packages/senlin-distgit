@@ -8,7 +8,7 @@ OpenStack services. \
 The goal is to make orchestration of collections of similar objects easier.
 
 Name:           openstack-%{service}
-Version:        5.0.0
+Version:        5.0.1
 Release:        1%{?dist}
 Summary:        OpenStack Senlin Service
 License:        ASL 2.0
@@ -291,6 +291,9 @@ exit 0
 %doc doc/build/html
 
 %changelog
+* Wed Mar 07 2018 RDO <dev@lists.rdoproject.org> 5.0.1-1
+- Update to 5.0.1
+
 * Wed Feb 28 2018 RDO <dev@lists.rdoproject.org> 5.0.0-1
 - Update to 5.0.0
 
