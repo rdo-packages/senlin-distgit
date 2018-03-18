@@ -289,3 +289,4 @@ exit 0
 %doc doc/build/html
 
 %changelog
+# REMOVEME: error caused by commit https://github.com/openstack/senlin/commit/8082fbc61f961444f4cf3238e23f4aac917d86a4
