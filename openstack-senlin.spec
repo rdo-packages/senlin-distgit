@@ -211,8 +211,9 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{service}
 
 # Move config files to proper location
 install -d -m 755 %{buildroot}%{_sysconfdir}/%{service}
-install -p -D -m 640 etc/%{service}/api-paste.ini \
-                     %{buildroot}%{_sysconfdir}/%{service}/api-paste.ini
+mv %{buildroot}%{_prefix}/etc/%{service}/api-paste.ini %{buildroot}%{_sysconfdir}/%{service}/api-paste.ini
+# Remove duplicate config files under /usr/etc/senlin
+rmdir %{buildroot}%{_prefix}/etc/%{service}
 
 # Install dist conf
 install -p -D -m 640 %{SOURCE3} %{buildroot}%{_datadir}/%{service}/%{service}-dist.conf
