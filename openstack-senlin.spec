@@ -1,3 +1,4 @@
+%global milestone .0rc1
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global service senlin
@@ -8,13 +9,17 @@ OpenStack services. \
 The goal is to make orchestration of collections of similar objects easier.
 
 Name:           openstack-%{service}
-Version:        XXX
-Release:        XXX
+Version:        6.0.0
+Release:        0.1%{?milestone}%{?dist}
 Summary:        OpenStack Senlin Service
 License:        ASL 2.0
 URL:            http://launchpad.net/%{service}/
 
 Source0:        http://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
+#
+# patches_base=6.0.0.0rc1
+#
+
 Source1:        %{service}.logrotate
 Source2:        openstack-%{service}-api.service
 Source3:        openstack-%{service}-engine.service
@@ -157,6 +162,7 @@ This package contains Senlin common files.
 Summary:        Senlin documentation
 
 BuildRequires:  python2-sphinx
+BuildRequires:  graphviz
 BuildRequires:  python2-oslo-sphinx
 BuildRequires:  python2-debtcollector
 
@@ -291,3 +297,6 @@ exit 0
 %doc doc/build/html
 
 %changelog
+* Thu Aug 16 2018 RDO <dev@lists.rdoproject.org> 6.0.0-0.1.0rc1
+- Update to 6.0.0.0rc1
+
