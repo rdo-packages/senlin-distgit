@@ -11,6 +11,9 @@
 # End of macros for py2/py3 compatibility
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
+#FIXME(jpena): re-enable doc build once we have Sphinx > 1.6.5 or docutils > 0.11
+%global with_doc 0
+
 %global service senlin
 %global common_desc \
 Senlin is a clustering service for OpenStack cloud. \
@@ -179,7 +182,7 @@ Requires:       python%{pyver}-%{service} = %{version}-%{release}
 
 This package contains Senlin common files.
 
-
+%if 0%{?with_doc}
 %package doc
 Summary:        Senlin documentation
 
@@ -191,7 +194,7 @@ BuildRequires:  python%{pyver}-debtcollector
 %{common_desc}
 
 This package contains the documentation.
-
+%endif
 
 %package api
 
@@ -222,10 +225,15 @@ rm -f *requirements.txt
 
 %build
 %{pyver_build}
+
+%if 0%{?with_doc}
 # generate html docs
-%{pyver_bin} setup.py build_sphinx -b html
+export PYTHONPATH=.
+sphinx-build -W -b html doc/source doc/build/html
 # remove the sphinx-build-%{pyver} leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
+%endif
+
 oslo-config-generator-%{pyver} --config-file tools/config-generator.conf \
                       --output-file etc/%{service}.conf.sample
 
@@ -312,9 +320,10 @@ exit 0
 %{_bindir}/%{service}-manage
 %{_bindir}/%{service}-wsgi-api
 
-
+%if 0%{?with_doc}
 %files doc
 %license LICENSE
 %doc doc/build/html
+%endif
 
 %changelog
