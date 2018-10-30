@@ -1,0 +1,9 @@
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Christopher Brown <snecklifter@gmail.com>
+Code-Review+2: Christopher Brown <snecklifter@gmail.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Tue, 30 Oct 2018 11:41:49 +0000
+Reviewed-on: https://review.rdoproject.org/r/17154
+Project: openstack/senlin-distgit
+Branch: refs/heads/rpm-master
