@@ -118,6 +118,7 @@ Requires:       python%{pyver}-oslo-middleware >= 3.31.0
 Requires:       python%{pyver}-oslo-policy >= 1.30.0
 Requires:       python%{pyver}-oslo-serialization >= 2.18.0
 Requires:       python%{pyver}-oslo-service >= 1.24.0
+Requires:       python%{pyver}-oslo-upgradecheck >= 0.1.0
 Requires:       python%{pyver}-oslo-utils >= 3.33.0
 Requires:       python%{pyver}-oslo-versionedobjects >= 1.31.2
 Requires:       python%{pyver}-osprofiler >= 1.4.0
@@ -318,6 +319,7 @@ exit 0
 %dir %attr(0750, %{service}, root) %{_localstatedir}/log/%{service}
 %attr(-, root, %{service}) %{_datadir}/%{service}/%{service}-dist.conf
 %{_bindir}/%{service}-manage
+%{_bindir}/%{service}-status
 %{_bindir}/%{service}-wsgi-api
 
 %if 0%{?with_doc}
