@@ -89,7 +89,7 @@ Requires:       openstack-%{service}-common = %{version}-%{release}
 
 Requires(pre): shadow-utils
 
-%{?systemd_requires}
+%{?systemd_ordering}
 BuildRequires:  systemd
 
 %description
