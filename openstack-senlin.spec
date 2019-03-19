@@ -67,6 +67,7 @@ BuildRequires:  python%{pyver}-webob
 BuildRequires:  python%{pyver}-devel
 BuildRequires:  python%{pyver}-pbr
 BuildRequires:  python%{pyver}-setuptools
+BuildRequires:  python%{pyver}-tenacity
 BuildRequires:  git
 
 # Required to compile translation files
