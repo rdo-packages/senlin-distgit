@@ -3,7 +3,7 @@
 %global service senlin
 
 Name:           openstack-%{service}
-Version:        4.0.0
+Version:        4.0.1
 Release:        1%{?dist}
 Summary:        OpenStack Senlin Service
 License:        ASL 2.0
@@ -335,6 +335,9 @@ exit 0
 %doc doc/build/html
 
 %changelog
+* Wed Apr 17 2019 RDO <dev@lists.rdoproject.org> 4.0.1-1
+- Update to 4.0.1
+
 * Wed Aug 30 2017 rdo-trunk <javier.pena@redhat.com> 4.0.0-1
 - Update to 4.0.0
 
