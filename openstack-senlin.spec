@@ -272,7 +272,7 @@ install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/openstack-%{service}-api
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/openstack-%{service}-engine.service
 
 %check
-OS_TEST_PATH=./%{service}/tests/unit stestr-%{pyver} run
+PYTHON=%{pyver_bin} OS_TEST_PATH=./%{service}/tests/unit stestr-%{pyver} run
 
 %pre common
 getent group %{service} >/dev/null || groupadd -r %{service}
