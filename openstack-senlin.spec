@@ -33,6 +33,8 @@ Source1:        %{service}.logrotate
 Source2:        openstack-%{service}-api.service
 Source3:        openstack-%{service}-engine.service
 Source4:        %{service}-dist.conf
+Source5:        openstack-%{service}-conductor.service
+Source6:        openstack-%{service}-health-manager.service
 
 BuildArch:      noarch
 
@@ -52,6 +54,7 @@ BuildRequires:  python%{pyver}-oslo-log
 BuildRequires:  python%{pyver}-oslo-messaging
 BuildRequires:  python%{pyver}-oslo-middleware
 BuildRequires:  python%{pyver}-oslo-policy
+BuildRequires:  python%{pyver}-oslo-reports
 BuildRequires:  python%{pyver}-oslo-serialization
 BuildRequires:  python%{pyver}-oslo-service
 BuildRequires:  python%{pyver}-oslo-upgradecheck
@@ -225,6 +228,26 @@ Requires:       %{name}-common = %{version}-%{release}
 
 This package contains the Senline Engine service.
 
+%package conductor
+
+Summary:        OpenStack Senlin Conductor service
+Requires:       %{name}-common = %{version}-%{release}
+
+%description conductor
+%{common_desc}
+
+This package contains the Senlin Conductor service.
+
+%package health-manager
+
+Summary:        OpenStack Senlin Health Manager service
+Requires:       %{name}-common = %{version}-%{release}
+
+%description health-manager
+%{common_desc}
+
+This package contains the Senlin Health Manager service.
+
 %prep
 %autosetup -n %{service}-%{upstream_version} -S git
 
@@ -270,6 +293,8 @@ install -p -D -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/openstack
 # Install systemd units
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/openstack-%{service}-api.service
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/openstack-%{service}-engine.service
+install -p -D -m 644 %{SOURCE5} %{buildroot}%{_unitdir}/openstack-%{service}-conductor.service
+install -p -D -m 644 %{SOURCE6} %{buildroot}%{_unitdir}/openstack-%{service}-health-manager.service
 
 %check
 PYTHON=%{pyver_bin} OS_TEST_PATH=./%{service}/tests/unit stestr-%{pyver} run
@@ -295,6 +320,20 @@ exit 0
 %postun engine
 %systemd_postun_with_restart openstack-%{service}-engine.service
 
+%post conductor
+%systemd_post openstack-%{service}-conductor.service
+%preun conductor
+%systemd_preun openstack-%{service}-conductor.service
+%postun conductor
+%systemd_postun_with_restart openstack-%{service}-conductor.service
+
+%post health-manager
+%systemd_post openstack-%{service}-health-manager.service
+%preun health-manager
+%systemd_preun openstack-%{service}-health-manager.service
+%postun health-manager
+%systemd_postun_with_restart openstack-%{service}-health-manager.service
+
 %files api
 %license LICENSE
 %{_bindir}/%{service}-api
@@ -304,6 +343,16 @@ exit 0
 %license LICENSE
 %{_bindir}/%{service}-engine
 %{_unitdir}/openstack-%{service}-engine.service
+
+%files conductor
+%license LICENSE
+%{_bindir}/%{service}-conductor
+%{_unitdir}/openstack-%{service}-conductor.service
+
+%files health-manager
+%license LICENSE
+%{_bindir}/%{service}-health-manager
+%{_unitdir}/openstack-%{service}-health-manager.service
 
 %files -n python%{pyver}-%{service}-tests-unit
 %license LICENSE
