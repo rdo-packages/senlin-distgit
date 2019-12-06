@@ -78,12 +78,10 @@ BuildRequires:  python%{pyver}-babel
 
 # Handle python2 exception
 %if %{pyver} == 2
-BuildRequires:  python-pep8
 BuildRequires:  python-jsonpath-rw
 BuildRequires:  python-paste-deploy
 BuildRequires:  python-migrate
 %else
-BuildRequires:  python%{pyver}-pep8
 BuildRequires:  python%{pyver}-jsonpath-rw
 BuildRequires:  python%{pyver}-paste-deploy
 BuildRequires:  python%{pyver}-migrate
