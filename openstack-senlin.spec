@@ -1,14 +1,3 @@
-# Macros for py2/py3 compatibility
-%if 0%{?fedora} || 0%{?rhel} > 7
-%global pyver %{python3_pkgversion}
-%else
-%global pyver 2
-%endif
-%global pyver_bin python%{pyver}
-%global pyver_sitelib %python%{pyver}_sitelib
-%global pyver_install %py%{pyver}_install
-%global pyver_build %py%{pyver}_build
-# End of macros for py2/py3 compatibility
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 #FIXME(jpena): re-enable doc build once we have Sphinx > 1.6.5 or docutils > 0.11
@@ -39,53 +28,45 @@ Source6:        openstack-%{service}-health-manager.service
 BuildArch:      noarch
 
 BuildRequires:  openstack-macros
-BuildRequires:  python%{pyver}-oslo-db
-BuildRequires:  python%{pyver}-docker
-BuildRequires:  python%{pyver}-eventlet
-BuildRequires:  python%{pyver}-jsonschema
-BuildRequires:  python%{pyver}-keystoneauth1
-BuildRequires:  python%{pyver}-keystonemiddleware
-BuildRequires:  python%{pyver}-microversion-parse
-BuildRequires:  python%{pyver}-openstacksdk
-BuildRequires:  python%{pyver}-oslo-config
-BuildRequires:  python%{pyver}-oslo-context
-BuildRequires:  python%{pyver}-oslo-i18n
-BuildRequires:  python%{pyver}-oslo-log
-BuildRequires:  python%{pyver}-oslo-messaging
-BuildRequires:  python%{pyver}-oslo-middleware
-BuildRequires:  python%{pyver}-oslo-policy
-BuildRequires:  python%{pyver}-oslo-reports
-BuildRequires:  python%{pyver}-oslo-serialization
-BuildRequires:  python%{pyver}-oslo-service
-BuildRequires:  python%{pyver}-oslo-upgradecheck
-BuildRequires:  python%{pyver}-oslo-utils
-BuildRequires:  python%{pyver}-oslo-versionedobjects
-BuildRequires:  python%{pyver}-osprofiler
-BuildRequires:  python%{pyver}-requests
-BuildRequires:  python%{pyver}-routes
-BuildRequires:  python%{pyver}-six
-BuildRequires:  python%{pyver}-sqlalchemy
-BuildRequires:  python%{pyver}-stevedore
-BuildRequires:  python%{pyver}-webob
-BuildRequires:  python%{pyver}-devel
-BuildRequires:  python%{pyver}-pbr
-BuildRequires:  python%{pyver}-setuptools
-BuildRequires:  python%{pyver}-tenacity
+BuildRequires:  python3-oslo-db
+BuildRequires:  python3-docker
+BuildRequires:  python3-eventlet
+BuildRequires:  python3-jsonschema
+BuildRequires:  python3-keystoneauth1
+BuildRequires:  python3-keystonemiddleware
+BuildRequires:  python3-microversion-parse
+BuildRequires:  python3-openstacksdk
+BuildRequires:  python3-oslo-config
+BuildRequires:  python3-oslo-context
+BuildRequires:  python3-oslo-i18n
+BuildRequires:  python3-oslo-log
+BuildRequires:  python3-oslo-messaging
+BuildRequires:  python3-oslo-middleware
+BuildRequires:  python3-oslo-policy
+BuildRequires:  python3-oslo-reports
+BuildRequires:  python3-oslo-serialization
+BuildRequires:  python3-oslo-service
+BuildRequires:  python3-oslo-upgradecheck
+BuildRequires:  python3-oslo-utils
+BuildRequires:  python3-oslo-versionedobjects
+BuildRequires:  python3-osprofiler
+BuildRequires:  python3-requests
+BuildRequires:  python3-routes
+BuildRequires:  python3-sqlalchemy
+BuildRequires:  python3-stevedore
+BuildRequires:  python3-webob
+BuildRequires:  python3-devel
+BuildRequires:  python3-pbr
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-tenacity
 BuildRequires:  git
 
 # Required to compile translation files
-BuildRequires:  python%{pyver}-babel
+BuildRequires:  python3-babel
 
-# Handle python2 exception
-%if %{pyver} == 2
-BuildRequires:  python-jsonpath-rw
-BuildRequires:  python-paste-deploy
-BuildRequires:  python-migrate
-%else
-BuildRequires:  python%{pyver}-jsonpath-rw
-BuildRequires:  python%{pyver}-paste-deploy
-BuildRequires:  python%{pyver}-migrate
-%endif
+BuildRequires:  python3-jsonpath-rw
+BuildRequires:  python3-paste-deploy
+BuildRequires:  python3-migrate
 
 Requires:       openstack-%{service}-common = %{version}-%{release}
 
@@ -102,80 +83,71 @@ BuildRequires:  systemd
 %{common_desc}
 
 
-%package -n python%{pyver}-%{service}
+%package -n python3-%{service}
 Summary:        Senlin Python libraries
-%{?python_provide:%python_provide python%{pyver}-%{service}}
+%{?python_provide:%python_provide python3-%{service}}
 
-Requires:       python%{pyver}-oslo-db >= 4.27.0
-Requires:       python%{pyver}-pbr >= 2.0.0
-Requires:       python%{pyver}-babel >= 2.3.4
-Requires:       python%{pyver}-docker >= 2.4.2
-Requires:       python%{pyver}-eventlet >= 0.18.2
-Requires:       python%{pyver}-jsonschema >= 2.6.0
-Requires:       python%{pyver}-keystoneauth1 >= 3.4.0
-Requires:       python%{pyver}-keystonemiddleware >= 4.17.0
-Requires:       python%{pyver}-microversion-parse >= 0.2.1
-Requires:       python%{pyver}-openstacksdk >= 0.27.0
-Requires:       python%{pyver}-oslo-config >= 2:5.2.0
-Requires:       python%{pyver}-oslo-context >= 2.19.2
-Requires:       python%{pyver}-oslo-i18n >= 3.15.3
-Requires:       python%{pyver}-oslo-log >= 3.36.0
-Requires:       python%{pyver}-oslo-messaging >= 5.29.0
-Requires:       python%{pyver}-oslo-middleware >= 3.31.0
-Requires:       python%{pyver}-oslo-policy >= 1.30.0
-Requires:       python%{pyver}-oslo-reports >= 1.18.0
-Requires:       python%{pyver}-oslo-serialization >= 2.18.0
-Requires:       python%{pyver}-oslo-service >= 1.24.0
-Requires:       python%{pyver}-oslo-upgradecheck >= 0.1.0
-Requires:       python%{pyver}-oslo-utils >= 3.33.0
-Requires:       python%{pyver}-oslo-versionedobjects >= 1.31.2
-Requires:       python%{pyver}-osprofiler >= 1.4.0
-Requires:       python%{pyver}-requests
-Requires:       python%{pyver}-pytz
-Requires:       python%{pyver}-routes >= 2.3.1
-Requires:       python%{pyver}-six >= 1.10.0
-Requires:       python%{pyver}-sqlalchemy >= 1.0.10
-Requires:       python%{pyver}-stevedore >= 1.20.0
-Requires:       python%{pyver}-webob >= 1.7.1
-Requires:       python%{pyver}-tenacity >= 4.9.0
+Requires:       python3-oslo-db >= 4.27.0
+Requires:       python3-pbr >= 2.0.0
+Requires:       python3-babel >= 2.3.4
+Requires:       python3-docker >= 2.4.2
+Requires:       python3-eventlet >= 0.18.2
+Requires:       python3-jsonschema >= 2.6.0
+Requires:       python3-keystoneauth1 >= 3.4.0
+Requires:       python3-keystonemiddleware >= 4.17.0
+Requires:       python3-microversion-parse >= 0.2.1
+Requires:       python3-openstacksdk >= 0.42.0
+Requires:       python3-oslo-config >= 2:5.2.0
+Requires:       python3-oslo-context >= 2.19.2
+Requires:       python3-oslo-i18n >= 3.15.3
+Requires:       python3-oslo-log >= 3.36.0
+Requires:       python3-oslo-messaging >= 5.29.0
+Requires:       python3-oslo-middleware >= 3.31.0
+Requires:       python3-oslo-policy >= 1.30.0
+Requires:       python3-oslo-reports >= 1.18.0
+Requires:       python3-oslo-serialization >= 2.18.0
+Requires:       python3-oslo-service >= 1.24.0
+Requires:       python3-oslo-upgradecheck >= 0.1.0
+Requires:       python3-oslo-utils >= 3.33.0
+Requires:       python3-oslo-versionedobjects >= 1.31.2
+Requires:       python3-osprofiler >= 1.4.0
+Requires:       python3-requests
+Requires:       python3-pytz
+Requires:       python3-routes >= 2.3.1
+Requires:       python3-sqlalchemy >= 1.0.10
+Requires:       python3-stevedore >= 1.20.0
+Requires:       python3-webob >= 1.7.1
+Requires:       python3-tenacity >= 4.9.0
 
-# Handle python2 exception
-%if %{pyver} == 2
-Requires:       python-jsonpath-rw >= 1.2.0
-Requires:       python-paste-deploy >= 1.5.0
-Requires:       PyYAML
-Requires:       python-migrate >= 0.11.0
-%else
-Requires:       python%{pyver}-jsonpath-rw >= 1.2.0
-Requires:       python%{pyver}-paste-deploy >= 1.5.0
-Requires:       python%{pyver}-PyYAML
-Requires:       python%{pyver}-migrate >= 0.11.0
-%endif
+Requires:       python3-jsonpath-rw >= 1.2.0
+Requires:       python3-paste-deploy >= 1.5.0
+Requires:       python3-PyYAML
+Requires:       python3-migrate >= 0.11.0
 
-%description -n python%{pyver}-%{service}
+%description -n python3-%{service}
 %{common_desc}
 
 This package contains the Senlin Python library.
 
-%package -n python%{pyver}-%{service}-tests-unit
+%package -n python3-%{service}-tests-unit
 Summary:        Senlin unit tests
-%{?python_provide:%python_provide python%{pyver}-%{service}-tests-unit}
+%{?python_provide:%python_provide python3-%{service}-tests-unit}
 
-Requires:       python%{pyver}-testscenarios
-Requires:       python%{pyver}-testtools
-Requires:       python%{pyver}-oslotest
-Requires:       python%{pyver}-stestr
-Requires:       python%{pyver}-mock
-Requires:       python%{pyver}-%{service} = %{version}-%{release}
-BuildRequires:  python%{pyver}-mock
-BuildRequires:  python%{pyver}-openstackdocstheme >= 1.11.0
-BuildRequires:  python%{pyver}-oslotest >= 1.10.0
-BuildRequires:  python%{pyver}-stestr
-BuildRequires:  python%{pyver}-PyMySQL >= 0.7.6
-BuildRequires:  python%{pyver}-testscenarios >= 0.4
-BuildRequires:  python%{pyver}-testtools >= 1.4.0
+Requires:       python3-testscenarios
+Requires:       python3-testtools
+Requires:       python3-oslotest
+Requires:       python3-stestr
+Requires:       python3-mock
+Requires:       python3-%{service} = %{version}-%{release}
+BuildRequires:  python3-mock
+BuildRequires:  python3-openstackdocstheme >= 1.11.0
+BuildRequires:  python3-oslotest >= 1.10.0
+BuildRequires:  python3-stestr
+BuildRequires:  python3-PyMySQL >= 0.7.6
+BuildRequires:  python3-testscenarios >= 0.4
+BuildRequires:  python3-testtools >= 1.4.0
 
-%description -n python%{pyver}-%{service}-tests-unit
+%description -n python3-%{service}-tests-unit
 %{common_desc}
 
 This package contains the Senlin unit test files.
@@ -184,7 +156,7 @@ This package contains the Senlin unit test files.
 %package common
 Summary:        Senlin common files
 
-Requires:       python%{pyver}-%{service} = %{version}-%{release}
+Requires:       python3-%{service} = %{version}-%{release}
 
 %description common
 %{common_desc}
@@ -195,9 +167,9 @@ This package contains Senlin common files.
 %package doc
 Summary:        Senlin documentation
 
-BuildRequires:  python%{pyver}-sphinx
-BuildRequires:  python%{pyver}-oslo-sphinx
-BuildRequires:  python%{pyver}-debtcollector
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-oslo-sphinx
+BuildRequires:  python3-debtcollector
 
 %description doc
 %{common_desc}
@@ -256,21 +228,21 @@ rm senlin/tests/unit/test_hacking.py
 rm -f *requirements.txt
 
 %build
-%{pyver_build}
+%{py3_build}
 
 %if 0%{?with_doc}
 # generate html docs
 export PYTHONPATH=.
 sphinx-build -W -b html doc/source doc/build/html
-# remove the sphinx-build-%{pyver} leftovers
+# remove the sphinx-build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
-oslo-config-generator-%{pyver} --config-file tools/config-generator.conf \
+oslo-config-generator --config-file tools/config-generator.conf \
                       --output-file etc/%{service}.conf.sample
 
 %install
-%{pyver_install}
+%{py3_install}
 
 # Setup directories
 install -d -m 755 %{buildroot}%{_datadir}/%{service}
@@ -298,7 +270,7 @@ install -p -D -m 644 %{SOURCE5} %{buildroot}%{_unitdir}/openstack-%{service}-con
 install -p -D -m 644 %{SOURCE6} %{buildroot}%{_unitdir}/openstack-%{service}-health-manager.service
 
 %check
-PYTHON=%{pyver_bin} OS_TEST_PATH=./%{service}/tests/unit stestr-%{pyver} run
+PYTHON=%{__python3} OS_TEST_PATH=./%{service}/tests/unit stestr run
 
 %pre common
 getent group %{service} >/dev/null || groupadd -r %{service}
@@ -355,14 +327,14 @@ exit 0
 %{_bindir}/%{service}-health-manager
 %{_unitdir}/openstack-%{service}-health-manager.service
 
-%files -n python%{pyver}-%{service}-tests-unit
+%files -n python3-%{service}-tests-unit
 %license LICENSE
-%{pyver_sitelib}/%{service}/tests
+%{python3_sitelib}/%{service}/tests
 
-%files -n python%{pyver}-%{service}
-%{pyver_sitelib}/%{service}
-%{pyver_sitelib}/%{service}-*.egg-info
-%exclude %{pyver_sitelib}/%{service}/tests
+%files -n python3-%{service}
+%{python3_sitelib}/%{service}
+%{python3_sitelib}/%{service}-*.egg-info
+%exclude %{python3_sitelib}/%{service}/tests
 
 
 %files common
