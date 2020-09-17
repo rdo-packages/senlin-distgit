@@ -89,7 +89,6 @@ Summary:        Senlin Python libraries
 
 Requires:       python3-oslo-db >= 4.27.0
 Requires:       python3-pbr >= 2.0.0
-Requires:       python3-babel >= 2.3.4
 Requires:       python3-docker >= 2.4.2
 Requires:       python3-eventlet >= 0.18.2
 Requires:       python3-jsonschema >= 2.6.0
