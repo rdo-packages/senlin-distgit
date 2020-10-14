@@ -1,4 +1,3 @@
-%global milestone .0rc1
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 #FIXME(jpena): re-enable doc build once we have Sphinx > 1.6.5 or docutils > 0.11
@@ -13,14 +12,12 @@ The goal is to make orchestration of collections of similar objects easier.
 
 Name:           openstack-%{service}
 Version:        10.0.0
-Release:        0.1%{?milestone}%{?dist}
+Release:        1%{?dist}
 Summary:        OpenStack Senlin Service
 License:        ASL 2.0
 URL:            http://launchpad.net/%{service}/
 
 Source0:        http://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
-#
-# patches_base=10.0.0.0rc1
 #
 
 Source1:        %{service}.logrotate
@@ -362,6 +359,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Oct 14 2020 RDO <dev@lists.rdoproject.org> 10.0.0-1
+- Update to 10.0.0
+
 * Fri Sep 25 2020 RDO <dev@lists.rdoproject.org> 10.0.0-0.1.0rc1
 - Update to 10.0.0.0rc1
 
