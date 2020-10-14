@@ -1,4 +1,5 @@
-%global milestone .0rc1
+%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 #FIXME(jpena): re-enable doc build once we have Sphinx > 1.6.5 or docutils > 0.11
@@ -13,14 +14,12 @@ The goal is to make orchestration of collections of similar objects easier.
 
 Name:           openstack-%{service}
 Version:        10.0.0
-Release:        0.1%{?milestone}%{?dist}
+Release:        1%{?dist}
 Summary:        OpenStack Senlin Service
 License:        ASL 2.0
 URL:            http://launchpad.net/%{service}/
 
 Source0:        http://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
-#
-# patches_base=10.0.0.0rc1
 #
 
 Source1:        %{service}.logrotate
@@ -29,8 +28,18 @@ Source3:        openstack-%{service}-engine.service
 Source4:        %{service}-dist.conf
 Source5:        openstack-%{service}-conductor.service
 Source6:        openstack-%{service}-health-manager.service
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+Source101:        http://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz.asc
+Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
+%endif
 
 BuildArch:      noarch
+
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+BuildRequires:  /usr/bin/gpgv2
+%endif
 
 BuildRequires:  openstack-macros
 BuildRequires:  python3-oslo-db
@@ -223,6 +232,10 @@ Requires:       %{name}-common = %{version}-%{release}
 This package contains the Senlin Health Manager service.
 
 %prep
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%endif
 %autosetup -n %{service}-%{upstream_version} -S git
 
 # Remove hacking tests
@@ -362,6 +375,10 @@ exit 0
 %endif
 
 %changelog
+* Wed Oct 14 2020 RDO <dev@lists.rdoproject.org> 10.0.0-1
+- Update to 10.0.0
+- Implement sources verification using upstream gpg signature
+
 * Fri Sep 25 2020 RDO <dev@lists.rdoproject.org> 10.0.0-0.1.0rc1
 - Update to 10.0.0.0rc1
 
