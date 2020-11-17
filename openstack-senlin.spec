@@ -71,7 +71,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pbr
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-tenacity
-BuildRequires:  git
+BuildRequires:  git-core
 
 # Required to compile translation files
 BuildRequires:  python3-babel
