@@ -99,41 +99,41 @@ BuildRequires:  systemd
 Summary:        Senlin Python libraries
 %{?python_provide:%python_provide python3-%{service}}
 
-Requires:       python3-oslo-db >= 4.27.0
-Requires:       python3-pbr >= 2.0.0
+Requires:       python3-oslo-db >= 6.0.0
+Requires:       python3-pbr >= 3.1.1
 Requires:       python3-docker >= 2.4.2
-Requires:       python3-eventlet >= 0.18.2
-Requires:       python3-jsonschema >= 2.6.0
-Requires:       python3-keystoneauth1 >= 3.4.0
+Requires:       python3-eventlet >= 0.26.1
+Requires:       python3-jsonschema >= 3.2.0
+Requires:       python3-keystoneauth1 >= 3.18.0
 Requires:       python3-keystonemiddleware >= 4.17.0
 Requires:       python3-microversion-parse >= 0.2.1
 Requires:       python3-openstacksdk >= 0.42.0
-Requires:       python3-oslo-config >= 2:5.2.0
-Requires:       python3-oslo-context >= 2.19.2
-Requires:       python3-oslo-i18n >= 3.15.3
+Requires:       python3-oslo-config >= 2:6.8.0
+Requires:       python3-oslo-context >= 2.22.0
+Requires:       python3-oslo-i18n >= 3.20.0
 Requires:       python3-oslo-log >= 3.36.0
 Requires:       python3-oslo-messaging >= 5.29.0
 Requires:       python3-oslo-middleware >= 3.31.0
-Requires:       python3-oslo-policy >= 1.30.0
+Requires:       python3-oslo-policy >= 3.6.0
 Requires:       python3-oslo-reports >= 1.18.0
-Requires:       python3-oslo-serialization >= 2.18.0
-Requires:       python3-oslo-service >= 1.24.0
-Requires:       python3-oslo-upgradecheck >= 0.1.0
-Requires:       python3-oslo-utils >= 3.33.0
+Requires:       python3-oslo-serialization >= 2.25.0
+Requires:       python3-oslo-service >= 1.31.0
+Requires:       python3-oslo-upgradecheck >= 1.3.0
+Requires:       python3-oslo-utils >= 4.5.0
 Requires:       python3-oslo-versionedobjects >= 1.31.2
-Requires:       python3-osprofiler >= 1.4.0
-Requires:       python3-requests
-Requires:       python3-pytz
+Requires:       python3-osprofiler >= 2.3.0
+Requires:       python3-requests >= 2.20.0
+Requires:       python3-pytz >= 2015.7
 Requires:       python3-routes >= 2.3.1
 Requires:       python3-sqlalchemy >= 1.0.10
 Requires:       python3-stevedore >= 1.20.0
 Requires:       python3-webob >= 1.7.1
-Requires:       python3-tenacity >= 4.9.0
+Requires:       python3-tenacity >= 6.0.0
 
-Requires:       python3-jsonpath-rw >= 1.2.0
+Requires:       python3-jsonpath-rw >= 1.4.0
 Requires:       python3-paste-deploy >= 1.5.0
-Requires:       python3-PyYAML
-Requires:       python3-migrate >= 0.11.0
+Requires:       python3-yaml >= 5.1
+Requires:       python3-migrate >= 0.13.0
 
 %description -n python3-%{service}
 %{common_desc}
