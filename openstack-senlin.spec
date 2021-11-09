@@ -373,3 +373,4 @@ exit 0
 %endif
 
 %changelog
+# REMOVEME: error caused by commit https://opendev.org/openstack/senlin/commit/0ef8f0e420ee6aef6d77fbf2c3657be2a5d9dfd8
