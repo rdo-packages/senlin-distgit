@@ -371,3 +371,4 @@ exit 0
 * Thu Apr 30 2020 RDO <dev@lists.rdoproject.org> 9.0.0-0.1.0rc1
 - Update to 9.0.0.0rc1
 
+# REMOVEME: error caused by commit https://opendev.org/openstack/senlin/commit/b26b793a8fa9c9f8b79a8bbdbb2f35f485badfdf
