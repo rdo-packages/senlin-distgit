@@ -66,7 +66,7 @@ BuildRequires:  python3-oslo-versionedobjects
 BuildRequires:  python3-osprofiler
 BuildRequires:  python3-requests
 BuildRequires:  python3-routes
-BuildRequires:  python3-sqlalchemy
+BuildRequires:  python3-sqlalchemy < 1.4.0
 BuildRequires:  python3-stevedore
 BuildRequires:  python3-webob
 BuildRequires:  python3-devel
@@ -128,6 +128,7 @@ Requires:       python3-requests >= 2.20.0
 Requires:       python3-pytz >= 2015.7
 Requires:       python3-routes >= 2.3.1
 Requires:       python3-sqlalchemy >= 1.0.10
+Requires:       python3-sqlalchemy < 1.4.0
 Requires:       python3-stevedore >= 1.20.0
 Requires:       python3-webob >= 1.7.1
 Requires:       python3-tenacity >= 6.0.0
