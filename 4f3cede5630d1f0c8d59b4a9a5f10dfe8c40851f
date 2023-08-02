@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cc71b1f_a203cf2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2023-08-02T14:59:43Z",
+      "side": 1,
+      "message": "FTR python-mock is not used anymore as it has been replaced by the unittest.mock [1]\n\n[1] https://review.opendev.org/c/openstack/senlin/+/721014",
+      "revId": "4f3cede5630d1f0c8d59b4a9a5f10dfe8c40851f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
