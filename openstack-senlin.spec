@@ -1,9 +1,14 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order bashate os-api-ref
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 
-#FIXME(jpena): re-enable doc build once we have Sphinx > 1.6.5 or docutils > 0.11
-%global with_doc 0
+%global with_doc 1
 
 %global service senlin
 %global common_desc \
@@ -16,7 +21,7 @@ Name:           openstack-%{service}
 Version:        XXX
 Release:        XXX
 Summary:        OpenStack Senlin Service
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://launchpad.net/%{service}/
 
 Source0:        http://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
@@ -40,55 +45,16 @@ BuildRequires:  /usr/bin/gpgv2
 %endif
 
 BuildRequires:  openstack-macros
-BuildRequires:  python3-oslo-db
-BuildRequires:  python3-docker
-BuildRequires:  python3-eventlet
-BuildRequires:  python3-jsonschema
-BuildRequires:  python3-keystoneauth1
-BuildRequires:  python3-keystonemiddleware
-BuildRequires:  python3-microversion-parse
-BuildRequires:  python3-openstacksdk
-BuildRequires:  python3-oslo-config
-BuildRequires:  python3-oslo-context
-BuildRequires:  python3-oslo-i18n
-BuildRequires:  python3-oslo-log
-BuildRequires:  python3-oslo-messaging
-BuildRequires:  python3-oslo-middleware
-BuildRequires:  python3-oslo-policy
-BuildRequires:  python3-oslo-reports
-BuildRequires:  python3-oslo-serialization
-BuildRequires:  python3-oslo-service
-BuildRequires:  python3-oslo-upgradecheck
-BuildRequires:  python3-oslo-utils
-BuildRequires:  python3-oslo-versionedobjects
-BuildRequires:  python3-osprofiler
-BuildRequires:  python3-requests
-BuildRequires:  python3-routes
-BuildRequires:  python3-sqlalchemy
-BuildRequires:  python3-stevedore
-BuildRequires:  python3-webob
 BuildRequires:  python3-devel
-BuildRequires:  python3-pbr
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-tenacity
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  git-core
-
-# Required to compile translation files
-BuildRequires:  python3-babel
-
-BuildRequires:  python3-jsonpath-rw
-BuildRequires:  python3-paste-deploy
-BuildRequires:  python3-migrate
 
 Requires:       openstack-%{service}-common = %{version}-%{release}
 
 Requires(pre): shadow-utils
 
-%if 0%{?rhel} && 0%{?rhel} < 8
-%{?systemd_requires}
-%else
-%{?systemd_ordering} # does not exist on EL7
-%endif
+%{?systemd_ordering}
+
 BuildRequires:  systemd
 
 %description
@@ -97,43 +63,6 @@ BuildRequires:  systemd
 
 %package -n python3-%{service}
 Summary:        Senlin Python libraries
-%{?python_provide:%python_provide python3-%{service}}
-
-Requires:       python3-oslo-db >= 6.0.0
-Requires:       python3-pbr >= 3.1.1
-Requires:       python3-docker >= 2.4.2
-Requires:       python3-eventlet >= 0.26.1
-Requires:       python3-jsonschema >= 3.2.0
-Requires:       python3-keystoneauth1 >= 3.18.0
-Requires:       python3-keystonemiddleware >= 4.17.0
-Requires:       python3-microversion-parse >= 0.2.1
-Requires:       python3-openstacksdk >= 0.99.0
-Requires:       python3-oslo-config >= 2:6.8.0
-Requires:       python3-oslo-context >= 2.22.0
-Requires:       python3-oslo-i18n >= 3.20.0
-Requires:       python3-oslo-log >= 3.36.0
-Requires:       python3-oslo-messaging >= 14.1.0
-Requires:       python3-oslo-middleware >= 3.31.0
-Requires:       python3-oslo-policy >= 3.6.0
-Requires:       python3-oslo-reports >= 1.18.0
-Requires:       python3-oslo-serialization >= 2.25.0
-Requires:       python3-oslo-service >= 1.31.0
-Requires:       python3-oslo-upgradecheck >= 1.3.0
-Requires:       python3-oslo-utils >= 4.5.0
-Requires:       python3-oslo-versionedobjects >= 1.31.2
-Requires:       python3-osprofiler >= 2.3.0
-Requires:       python3-requests >= 2.20.0
-Requires:       python3-pytz >= 2015.7
-Requires:       python3-routes >= 2.3.1
-Requires:       python3-sqlalchemy >= 1.0.10
-Requires:       python3-stevedore >= 1.20.0
-Requires:       python3-webob >= 1.7.1
-Requires:       python3-tenacity >= 6.0.0
-
-Requires:       python3-jsonpath-rw >= 1.4.0
-Requires:       python3-paste-deploy >= 1.5.0
-Requires:       python3-yaml >= 5.1
-Requires:       python3-migrate >= 0.13.0
 
 %description -n python3-%{service}
 %{common_desc}
@@ -142,21 +71,13 @@ This package contains the Senlin Python library.
 
 %package -n python3-%{service}-tests-unit
 Summary:        Senlin unit tests
-%{?python_provide:%python_provide python3-%{service}-tests-unit}
+
+Requires:       python3-%{service} = %{version}-%{release}
 
 Requires:       python3-testscenarios
 Requires:       python3-testtools
 Requires:       python3-oslotest
 Requires:       python3-stestr
-Requires:       python3-mock
-Requires:       python3-%{service} = %{version}-%{release}
-BuildRequires:  python3-mock
-BuildRequires:  python3-openstackdocstheme >= 1.11.0
-BuildRequires:  python3-oslotest >= 1.10.0
-BuildRequires:  python3-stestr
-BuildRequires:  python3-PyMySQL >= 0.7.6
-BuildRequires:  python3-testscenarios >= 0.4
-BuildRequires:  python3-testtools >= 1.4.0
 
 %description -n python3-%{service}-tests-unit
 %{common_desc}
@@ -177,10 +98,6 @@ This package contains Senlin common files.
 %if 0%{?with_doc}
 %package doc
 Summary:        Senlin documentation
-
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-oslo-sphinx
-BuildRequires:  python3-debtcollector
 
 %description doc
 %{common_desc}
@@ -239,25 +156,45 @@ This package contains the Senlin Health Manager service.
 # Remove hacking tests
 rm senlin/tests/unit/test_hacking.py
 
-# Let's handle dependencies ourselves
-rm -f *requirements.txt
+
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %if 0%{?with_doc}
 # generate html docs
-export PYTHONPATH=.
-sphinx-build -W -b html doc/source doc/build/html
+%tox -e docs
 # remove the sphinx-build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
-oslo-config-generator --config-file tools/config-generator.conf \
+%install
+%pyproject_install
+
+PYTHONPATH="%{buildroot}/%{python3_sitelib}" oslo-config-generator --config-file tools/config-generator.conf \
                       --output-file etc/%{service}.conf.sample
 
-%install
-%{py3_install}
 
 # Setup directories
 install -d -m 755 %{buildroot}%{_datadir}/%{service}
@@ -285,7 +222,7 @@ install -p -D -m 644 %{SOURCE5} %{buildroot}%{_unitdir}/openstack-%{service}-con
 install -p -D -m 644 %{SOURCE6} %{buildroot}%{_unitdir}/openstack-%{service}-health-manager.service
 
 %check
-PYTHON=%{__python3} OS_TEST_PATH=./%{service}/tests/unit stestr run
+%tox -e %{default_toxenv}
 
 %pre common
 getent group %{service} >/dev/null || groupadd -r %{service}
@@ -348,7 +285,7 @@ exit 0
 
 %files -n python3-%{service}
 %{python3_sitelib}/%{service}
-%{python3_sitelib}/%{service}-*.egg-info
+%{python3_sitelib}/%{service}-*.dist-info
 %exclude %{python3_sitelib}/%{service}/tests
 
 
